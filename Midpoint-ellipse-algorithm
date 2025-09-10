@@ -1,0 +1,42 @@
+import matplotlib.pyplot as plt
+
+r1 = int(input("Enter the first radius: "))
+r2 = int(input("Enter the second radius: "))
+xc = int(input("Enter the x coordinates of the centre: "))
+yc = int(input("Enter the y coordinates of the centre: "))
+
+x0 = 0
+y0 = r2
+p1 = r2**2 - r1**2 * r2 + r1**2 * 0.25
+
+while (2 * r2**2 * x0 <= 2 * r1**2 * y0):
+  plt.plot(xc + x0, yc + y0, 'ro')
+  plt.plot(xc - x0, yc + y0, 'ro')
+  plt.plot(xc + x0, yc - y0, 'ro')
+  plt.plot(xc - x0, yc - y0, 'ro')
+  x0 += 1
+  if p1 < 0:
+    p1 += 2 * r2**2 * x0 + r2**2
+  else:
+    y0 -= 1
+    p1 += 2 * r2**2 * x0 - 2 * r1**2 * y0 + r2**2
+
+p2 = r2**2 * (x0 + 0.5)**2 + r1**2 * (y0 - 1)**2 - r1**2 * r2**2
+while (y0 >= 0):
+  plt.plot(xc + x0, yc + y0, 'bo')
+  plt.plot(xc - x0, yc + y0, 'ro')
+  plt.plot(xc + x0, yc - y0, 'go')
+  plt.plot(xc - x0, yc - y0, 'yo')
+  y0 -= 1
+  if p2 > 0:
+    p2 += -2 * r1**2 * y0 + r1**2
+  else:
+    x0 += 1
+    p2 += 2 * r2**2 * x0 - 2 * r1**2 * y0 + r1**2
+
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Midpoint Ellipse Algorithm")
+plt.grid(True)
+plt.gca().set_aspect('equal', adjustable='box')
+plt.show()
